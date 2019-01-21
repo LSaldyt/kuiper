@@ -1,55 +1,36 @@
-#include <SFML/Graphics.hpp>
-#include "helpers.hpp"
-#include <math.h>
-#include <algorithm>
-#include <cstdlib>
+#include "entity.hpp"
 
-class Ship : public sf::CircleShape
+class Ship : public Entity
 {
-public:
-    double velocity;
-    double radial_velocity;
     double inertial_damping = 0.1f;
     double radial_inertial_damping = 0.5f;
+    double acceleration = 1.f;
+    double radial_acceleration = .5f;
 
-    bool inertia = true;
+public:
 
-    Ship() : sf::CircleShape(80.f, 3)
+    void forward()
     {
+        accelerate(1.f);
     }
 
-    void turn(float amount)
+    void backward()
     {
-        radial_velocity = radial_velocity + amount;
+        accelerate(-1.f);
     }
 
-    void accelerate(double amount)
+    void right()
     {
-        velocity = velocity + amount;
+        radial_accelerate(radial_acceleration);
     }
 
-    void stabilize_radial()
+    void left()
     {
-        radial_velocity = 0.f;
-    }
-
-    void stop()
-    {
-        velocity = 0.f;
+        radial_accelerate(-radial_acceleration);
     }
 
     void slow()
     {
-        accelerate(-sign(velocity) * std::min(abs(velocity), inertial_damping));
-        turn(-sign(radial_velocity) * std::min(abs(radial_velocity), radial_inertial_damping));
+        inertiate(inertial_damping, radial_inertial_damping);
     }
-
-    void update()
-    {
-        float angle = getRotation() + 90.f;
-
-        move(-velocity * cos(angle * 0.0174533), -velocity * sin(angle * 0.0174533));
-        rotate(radial_velocity);
-    }
-
 };

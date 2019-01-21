@@ -5,15 +5,13 @@
 
 int main()
 {
-    sf::View view(sf::Vector2f(0.f, 0.f), sf::Vector2f(2000.f, 2000.f));
-    sf::RenderWindow window(sf::VideoMode(2000, 2000), "Kuiper", sf::Style::Fullscreen);
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Kuiper", sf::Style::Fullscreen);
+    sf::View view = window.getDefaultView();
 
     TextureMap map;
     map.loadAll("image.png");
 
     Player player;
-    player.setFillColor(sf::Color(100, 250, 50));
-    player.setOrigin(sf::Vector2f(80.f, 80.f));
     //player.setTexture(map["image.png"]);
     
     sf::CircleShape start(10.f);
@@ -30,39 +28,19 @@ int main()
             }
             if (event.type == sf::Event::KeyPressed)
             {
-                if (event.key.code == sf::Keyboard::W)
-                {
-                    player.accelerate(1.f);
-                }
-                if (event.key.code == sf::Keyboard::S)
-                {
-                    player.accelerate(-1.f);
-                }
-                if (event.key.code == sf::Keyboard::D)
-                {
-                    player.turn(.5f);
-                }
-                if (event.key.code == sf::Keyboard::A)
-                {
-                    player.turn(-.5f);
-                }
-                if (event.key.code == sf::Keyboard::C)
-                {
-                    player.stabilize_radial();
-                }
-                if (event.key.code == sf::Keyboard::X)
-                {
-                    player.stop();
-                }
-                if (event.key.code == sf::Keyboard::Z)
-                {
-                    player.slow();
-                }
+                player.handle(event.key.code);
+            }
+            if (event.type == sf::Event::Resized)
+            {
+                // update the view to the new size of the window
+                sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
+                view = sf::View(visibleArea);
             }
         }
 
         player.update();
 
+        view.setCenter(player.getPosition());
         window.setView(view);
 
         window.clear();
