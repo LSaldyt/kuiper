@@ -1,9 +1,11 @@
 #include <SFML/Graphics.hpp>
+#include "helpers.hpp"
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
+    //sf::CircleShape shape(100.f);
+    sf::CircleShape shape(80.f, 3);
     shape.setFillColor(sf::Color::Green);
 
     while (window.isOpen())
@@ -12,7 +14,12 @@ int main()
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+            {
                 window.close();
+            }
+            if (event.type == sf::Event::KeyPressed)
+            {
+            }
         }
 
         window.clear();
