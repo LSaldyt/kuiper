@@ -40,11 +40,19 @@ int main()
                 }
                 if (event.key.code == sf::Keyboard::D)
                 {
-                    player.turn(5.f);
+                    player.turn(.5f);
                 }
                 if (event.key.code == sf::Keyboard::A)
                 {
-                    player.turn(-5.f);
+                    player.turn(-.5f);
+                }
+                if (event.key.code == sf::Keyboard::C)
+                {
+                    player.stabilize_radial();
+                }
+                if (event.key.code == sf::Keyboard::X)
+                {
+                    player.stop();
                 }
             }
         }

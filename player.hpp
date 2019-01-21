@@ -7,7 +7,7 @@ class Player : public Ship
 public:
     void turn(float amount)
     {
-        rotate(amount);
+        radial_velocity = radial_velocity + amount;
     }
 
     void accelerate(double amount)
@@ -15,11 +15,21 @@ public:
         velocity = velocity + amount;
     }
 
+    void stabilize_radial()
+    {
+        radial_velocity = 0.f;
+    }
+
+    void stop()
+    {
+        velocity = 0.f;
+    }
+
     void update()
     {
         float angle = getRotation() + 90.f;
-        print(angle);
         move(-velocity * cos(angle * 0.0174533), -velocity * sin(angle * 0.0174533));
+        rotate(radial_velocity);
     }
 
 };
