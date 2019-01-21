@@ -1,3 +1,2 @@
 #!/bin/bash
-./build
-./kuiper
+./build && ./kuiper

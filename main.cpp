@@ -1,12 +1,20 @@
 #include <SFML/Graphics.hpp>
 #include "helpers.hpp"
+#include "player.hpp"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    //sf::CircleShape shape(100.f);
-    sf::CircleShape shape(80.f, 3);
-    shape.setFillColor(sf::Color::Green);
+    sf::View view2(sf::Vector2f(0.f, 0.f), sf::Vector2f(2000.f, 2000.f));
+
+    sf::Texture texture;
+    if (!texture.loadFromFile("image.png"))
+    {
+        // error...
+    }
+
+    Player player;
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Kuiper", sf::Style::Fullscreen);
+    player.setTexture(texture);
 
     while (window.isOpen())
     {
@@ -19,11 +27,30 @@ int main()
             }
             if (event.type == sf::Event::KeyPressed)
             {
+                if (event.key.code == sf::Keyboard::W)
+                {
+                    player.accelerate(5.f);
+                }
+                if (event.key.code == sf::Keyboard::S)
+                {
+                    player.accelerate(-5.f);
+                }
+                if (event.key.code == sf::Keyboard::D)
+                {
+                    player.turn(5.f);
+                }
+                if (event.key.code == sf::Keyboard::A)
+                {
+                    player.turn(-5.f);
+                }
             }
         }
 
+        //view2.setCenter(player.getPosition());
+        window.setView(view2);
+
         window.clear();
-        window.draw(shape);
+        window.draw(player);
         window.display();
     }
 
