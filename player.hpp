@@ -1,4 +1,6 @@
 #include "ship.hpp"
+#include "helpers.hpp"
+#include <math.h>
 
 class Player : public Ship
 {
@@ -15,7 +17,9 @@ public:
 
     void update()
     {
-        move(0.f, 0.f);
+        float angle = getRotation() + 90.f;
+        print(angle);
+        move(-velocity * cos(angle * 0.0174533), -velocity * sin(angle * 0.0174533));
     }
 
 };
