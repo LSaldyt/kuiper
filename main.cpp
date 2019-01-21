@@ -1,20 +1,17 @@
 #include <SFML/Graphics.hpp>
 #include "helpers.hpp"
 #include "player.hpp"
+#include "texturemap.hpp"
 
 int main()
 {
+    TextureMap map;
+    map.loadAll("image.png");
     sf::View view2(sf::Vector2f(0.f, 0.f), sf::Vector2f(2000.f, 2000.f));
-
-    sf::Texture texture;
-    if (!texture.loadFromFile("image.png"))
-    {
-        // error...
-    }
 
     Player player;
     sf::RenderWindow window(sf::VideoMode(800, 600), "Kuiper", sf::Style::Fullscreen);
-    player.setTexture(texture);
+    player.setTexture(map["image.png"]);
 
     while (window.isOpen())
     {

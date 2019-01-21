@@ -1,3 +1,4 @@
+#pragma once
 // Lucas Saldyt
 // 1213399809
 // 6:00pm M/W class
