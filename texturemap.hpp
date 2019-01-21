@@ -18,8 +18,10 @@ public:
     template <typename T>
     void loadAll(T t) 
     {
-        map.insert(std::make_pair(t, sf::Texture()));
-        map[t].loadFromFile(std::string("resources/") + t);
+        std::string full(t);
+        std::string name = full.substr(0, full.find("."));
+        map.insert(std::make_pair(name, sf::Texture()));
+        map[name].loadFromFile(std::string("resources/") + full);
     }
 
     sf::Texture& operator[] (std::string s) 
