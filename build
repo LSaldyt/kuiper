@@ -1,0 +1,2 @@
+#!/bin/bash
+ g++ main.cpp -L~/projects/games/SFML-2.5.1/lib -lsfml-graphics -lsfml-window -lsfml-system -o kuiper
