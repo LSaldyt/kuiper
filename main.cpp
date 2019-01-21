@@ -54,6 +54,10 @@ int main()
                 {
                     player.stop();
                 }
+                if (event.key.code == sf::Keyboard::Z)
+                {
+                    player.slow();
+                }
             }
         }
 

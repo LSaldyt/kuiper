@@ -62,3 +62,9 @@ void writeFile(vector<string> content, string filename)
     file.close();
     //print("Output file closed");
 }
+
+template <typename T> int sign(T val) 
+{
+    return (T(0) < val) - (val < T(0));
+}
+
