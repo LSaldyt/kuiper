@@ -3,10 +3,17 @@
 class Player : public Ship
 {
 public:
-    Player() : Ship()
+    Player(sf::Texture& texture) : Ship()
     {
-        setFillColor(sf::Color(100, 250, 50));
-        setOrigin(sf::Vector2f(80.f, 80.f));
+        setOrigin(sf::Vector2f(5.f, 5.f));
+
+        Entity other;
+        other.setTexture(texture);
+        add(other, -10.f, -10.f);
+
+        Entity other2;
+        other2.setTexture(texture);
+        add(other2, 0, 0);
     }
 
     void handle(auto code)

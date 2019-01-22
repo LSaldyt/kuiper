@@ -1,6 +1,7 @@
 #include "entity.hpp"
+#include "composite.hpp"
 
-class Ship : public Entity
+class Ship : public Composite
 {
     double inertial_damping = 0.1f;
     double radial_inertial_damping = 0.5f;

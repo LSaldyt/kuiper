@@ -1,19 +1,21 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include "helpers.hpp"
 #include <math.h>
 #include <algorithm>
 #include <cstdlib>
 
-class Entity : public sf::CircleShape
+class Entity : public sf::Sprite
 {
 public:
+
     double velocity;
     double radial_velocity;
     double mass;
 
     bool inertia = true;
 
-    Entity() : sf::CircleShape(80.f, 3), velocity(0.f), radial_velocity(0.f), mass(0.f)
+    Entity() : velocity(0.f), radial_velocity(0.f), mass(0.f)
     {
     }
 
@@ -50,5 +52,4 @@ public:
         move(-velocity * cos(angle * 0.0174533), -velocity * sin(angle * 0.0174533));
         rotate(radial_velocity);
     }
-
 };

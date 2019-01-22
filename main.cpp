@@ -11,7 +11,8 @@ int main()
     TextureMap map;
     map.loadAll("image.png");
 
-    Player player;
+    Player player(map["image"]);
+    //map["image"];
     //player.setTexture(map["image.png"]);
     
     sf::CircleShape start(10.f);
