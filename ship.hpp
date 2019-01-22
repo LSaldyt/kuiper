@@ -1,33 +1,50 @@
 #include "entity.hpp"
 #include "composite.hpp"
 
+#include <cstdlib>
+
 class Ship : public Composite
 {
     double inertial_damping = 0.1f;
     double radial_inertial_damping = 0.5f;
     double acceleration = 1.f;
-    double radial_acceleration = .5f;
+    double radial_acceleration = .1f;
+
+    double max_velocity = 3.f;
+    double max_radial_velocity = .4f;
 
 public:
 
     void forward()
     {
-        accelerate(1.f);
+        if (velocity < max_velocity)
+        {
+            accelerate(1.f);
+        }
     }
 
     void backward()
     {
-        accelerate(-1.f);
+        if (velocity > -max_velocity)
+        {
+            accelerate(-1.f);
+        }
     }
 
     void right()
     {
-        radial_accelerate(radial_acceleration);
+        if (radial_velocity < max_radial_velocity)
+        {
+            radial_accelerate(radial_acceleration);
+        }
     }
 
     void left()
     {
-        radial_accelerate(-radial_acceleration);
+        if (radial_velocity > -max_radial_velocity)
+        {
+            radial_accelerate(-radial_acceleration);
+        }
     }
 
     void slow()

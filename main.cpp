@@ -2,6 +2,7 @@
 #include "helpers.hpp"
 #include "player.hpp"
 #include "texturemap.hpp"
+#include "registry.hpp"
 
 int main()
 {
