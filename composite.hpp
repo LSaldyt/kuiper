@@ -20,6 +20,13 @@ class Composite : public Entity
 public:
 
     std::vector<Component> children;
+    sf::CircleShape marker;
+
+    Composite() : Entity(), marker(30.f)
+    {
+        marker.setOrigin(30.f, 30.f);
+        marker.setFillColor(sf::Color(255, 255, 255));
+    }
 
     void update()
     {
@@ -31,6 +38,7 @@ public:
             child_entity->update();
         }
         Entity::update();
+        marker.setPosition(getPosition());
     }
 
     void move(float x, float y)
@@ -94,19 +102,18 @@ public:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         auto& position = getPosition();
+        auto& origin   = getOrigin();
 
-        int i = 0;
         for (auto& child : children)
         {
             double distance = std::get<0>(child);
             double angle    = std::get<1>(child);
             double totalAngle = angle + getRotation();
             auto& child_entity    = std::get<2>(child);
-            child_entity->setPosition(position.x - distance * cos(totalAngle * 0.0174533), 
-                                      position.y - distance * sin(totalAngle * 0.0174533));
+            child_entity->setPosition(origin.x + position.x - distance * cos(totalAngle * 0.0174533), 
+                                      origin.y + position.y - distance * sin(totalAngle * 0.0174533));
             target.draw(*child_entity);
-            print(i);
-            i++;
         }
+        target.draw(marker);
     }
 };

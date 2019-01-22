@@ -3,17 +3,15 @@
 class Player : public Ship
 {
 public:
+
     Player(sf::Texture& texture) : Ship()
     {
-        setOrigin(sf::Vector2f(5.f, 5.f));
+        Entity base;
+        base.setTexture(texture);
 
-        Entity other;
-        other.setTexture(texture);
-        add(other, -10.f, -10.f);
-
-        Entity other2;
-        other2.setTexture(texture);
-        add(other2, 0, 0);
+        auto bounds = base.getGlobalBounds();
+        base.setOrigin(sf::Vector2f(bounds.width / 2.f, bounds.height / 2.f));
+        add(base, 0, 0);
     }
 
     void handle(auto code)
