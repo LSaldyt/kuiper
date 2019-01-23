@@ -1,9 +1,9 @@
 #include "ship.hpp"
+#include "registry.hpp"
 
 class Player : public Ship
 {
 public:
-
     Player(sf::Texture& texture) : Ship()
     {
         Entity base;
@@ -14,7 +14,12 @@ public:
         add(base, 0, 0);
     }
 
-    void handle(auto code)
+    void update(Registry& registry)
+    {
+        Ship::update(registry);
+    }
+
+    void handle(int code, Registry& registry)
     {
         if (code == sf::Keyboard::W)
         {

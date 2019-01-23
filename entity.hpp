@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <cstdlib>
 
+class Registry;
+
 class Entity : public sf::Sprite
 {
 public:
@@ -45,11 +47,12 @@ public:
         radial_accelerate(-sign(radial_velocity) * std::min(abs(radial_velocity), radial_inertial_damping));
     }
 
-    void update()
+    void update(Registry& registry)
     {
         float angle = getRotation() + 90.f;
 
         move(-velocity * cos(angle * 0.0174533), -velocity * sin(angle * 0.0174533));
         rotate(radial_velocity);
     }
+
 };

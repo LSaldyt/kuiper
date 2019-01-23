@@ -3,18 +3,20 @@
 #include "player.hpp"
 #include "texturemap.hpp"
 #include "registry.hpp"
+#include <memory>
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Kuiper", sf::Style::Fullscreen);
     sf::View view = window.getDefaultView();
 
+    Registry registry;
+
     TextureMap map;
     map.loadAll("image.png");
 
     Player player(map["image"]);
-    //map["image"];
-    //player.setTexture(map["image.png"]);
+    registry.add(player);
     
     sf::CircleShape start(10.f);
     start.setFillColor(sf::Color(255, 0, 0));
@@ -30,24 +32,19 @@ int main()
             }
             if (event.type == sf::Event::KeyPressed)
             {
-                player.handle(event.key.code);
-            }
-            if (event.type == sf::Event::Resized)
-            {
-                // update the view to the new size of the window
-                sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
-                view = sf::View(visibleArea);
+                registry.handle(event.key.code);
             }
         }
 
-        player.update();
+        registry.update();
 
         view.setCenter(player.getPosition());
-        window.setView(view);
-
         window.clear();
-        window.draw(player);
+
+        window.draw(registry);
         window.draw(start);
+
+        window.setView(view);
         window.display();
     }
 
