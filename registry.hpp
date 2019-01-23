@@ -11,6 +11,7 @@
 class Registry : public sf::Drawable
 {
 public:
+    std::vector<std::shared_ptr<Composite>> queue;
     std::vector<std::shared_ptr<Composite>> items;
     std::unordered_map<std::string, int> map;
     std::unordered_map<int, std::string> names;
@@ -22,6 +23,11 @@ public:
 
     void update()
     {
+        if (queue.size() > 0)
+        {
+            items.insert(items.end(), queue.begin(), queue.end());
+            queue.clear();
+        }
         for (auto& item : items)
         {
             item->update(*this);
@@ -30,7 +36,7 @@ public:
 
     void add(std::shared_ptr<Composite> entity)
     {
-        items.push_back(std::move(entity));
+        queue.push_back(entity);
         print("Added");
     }
 
@@ -59,7 +65,9 @@ public:
             {
                 print(names[i]);
             }
-            print("Dereference finished");
+            print("Item location:");
+            print(item.get());
+            print("End Item Location");
             item->handle(code, registry);
             print("Finished Item Handling");
             i++;

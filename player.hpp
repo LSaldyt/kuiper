@@ -54,8 +54,8 @@ public:
         }
         if (code == sf::Keyboard::Space)
         {
-            //registry->add(std::make_shared<Projectile>(getPosition(), 10, getRotation()), "Projectile");
-            registry->add(std::make_shared<Composite>(), "Blank");
+            registry->add(std::make_shared<Projectile>(getPosition(), 1, getRotation()), "Projectile");
+            //registry->add(std::make_shared<Composite>(), "Blank");
         }
         print("Finished player handling");
     }
