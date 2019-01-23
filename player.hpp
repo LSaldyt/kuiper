@@ -1,5 +1,8 @@
 #include "ship.hpp"
 #include "registry.hpp"
+#include "projectile.hpp"
+
+#include <memory>
 
 class Player : public Ship
 {
@@ -19,7 +22,7 @@ public:
         Ship::update(registry);
     }
 
-    void handle(int code, Registry& registry)
+    virtual void handle(int code, std::shared_ptr<Registry> registry) 
     {
         if (code == sf::Keyboard::W)
         {
@@ -49,5 +52,11 @@ public:
         {
             slow();
         }
+        if (code == sf::Keyboard::Space)
+        {
+            //registry->add(std::make_shared<Projectile>(getPosition(), 10, getRotation()), "Projectile");
+            registry->add(std::make_shared<Composite>(), "Blank");
+        }
+        print("Finished player handling");
     }
 };

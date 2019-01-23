@@ -104,7 +104,10 @@ public:
         children.push_back(std::make_tuple(distance, angle, entity_type));
     }
 
-    virtual void handle(int code, Registry& registry) {}
+    virtual void handle(int code, std::shared_ptr<Registry> registry) 
+    {
+        print("Base handler");
+    }
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
     {

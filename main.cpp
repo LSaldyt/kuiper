@@ -10,13 +10,12 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Kuiper", sf::Style::Fullscreen);
     sf::View view = window.getDefaultView();
 
-    Registry registry;
+    std::shared_ptr<Registry> registry = std::make_shared<Registry>();
 
     TextureMap map;
     map.loadAll("image.png");
 
-    Player player(map["image"]);
-    registry.add(player);
+    registry->add(std::make_shared<Player>(map["image"]), "Player");
     
     sf::CircleShape start(10.f);
     start.setFillColor(sf::Color(255, 0, 0));
@@ -32,19 +31,24 @@ int main()
             }
             if (event.type == sf::Event::KeyPressed)
             {
-                registry.handle(event.key.code);
+                print("Handling");
+                registry->handle(event.key.code, registry);
+                print("Handling Finished");
             }
         }
 
-        registry.update();
+        print("Updating");
+        registry->update();
 
-        view.setCenter(player.getPosition());
+        view.setCenter((*registry)["Player"]->getPosition());
         window.clear();
 
-        window.draw(registry);
+        print("Drawing");
+        window.draw(*registry);
         window.draw(start);
 
         window.setView(view);
+        print("Displaying");
         window.display();
     }
 
