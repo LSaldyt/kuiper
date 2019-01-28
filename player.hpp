@@ -1,6 +1,7 @@
 #include "ship.hpp"
 #include "registry.hpp"
 #include "projectile.hpp"
+#include "weapon.hpp"
 
 #include <memory>
 
@@ -9,12 +10,13 @@ class Player : public Ship
 public:
     Player(sf::Texture& texture) : Ship()
     {
-        Entity base;
-        base.setTexture(texture);
+        //Entity base;
+        //base.setTexture(texture);
 
-        auto bounds = base.getGlobalBounds();
-        base.setOrigin(sf::Vector2f(bounds.width / 2.f, bounds.height / 2.f));
-        add(base, 0, 0);
+        //auto bounds = base.getGlobalBounds();
+        //base.setOrigin(sf::Vector2f(bounds.width / 2.f, bounds.height / 2.f));
+        //add(base, 0, 0);
+        add_weapon(Weapon(), 0, 0);
     }
 
     void update(Registry& registry)
@@ -54,8 +56,8 @@ public:
         }
         if (code == sf::Keyboard::Space)
         {
-            registry->add(std::make_shared<Projectile>(getPosition(), 1, getRotation()), "Projectile");
-            //registry->add(std::make_shared<Composite>(), "Blank");
+            shoot(registry);
+            //registry->add(std::make_shared<Projectile>(getPosition(), 5, getRotation()), "Projectile");
         }
         print("Finished player handling");
     }

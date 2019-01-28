@@ -18,7 +18,7 @@ public:
     std::vector<Component> children;
     sf::CircleShape marker;
 
-    Composite() : Entity(), marker(30.f)
+    Composite() : Entity(), marker(30.f, 3)
     {
         marker.setOrigin(30.f, 30.f);
         marker.setFillColor(sf::Color(255, 255, 255));
@@ -35,6 +35,7 @@ public:
         }
         Entity::update(registry);
         marker.setPosition(getPosition());
+        marker.setRotation(getRotation());
     }
 
     void move(float x, float y)

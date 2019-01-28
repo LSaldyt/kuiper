@@ -10,7 +10,7 @@ class Registry;
 class Entity : public sf::Sprite
 {
 public:
-
+    unsigned int id;
     double velocity;
     double radial_velocity;
     double mass;
